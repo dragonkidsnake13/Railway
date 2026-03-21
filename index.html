@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RailTrack India</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+        background: #0f172a;
+        color: #e2e8f0;
+    }
+
+    header {
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #020617;
+        border-bottom: 1px solid #1e293b;
+    }
+
+    header h1 {
+        font-size: 22px;
+        color: #38bdf8;
+    }
+
+    nav a {
+        margin-left: 20px;
+        text-decoration: none;
+        color: #cbd5f5;
+        font-size: 14px;
+    }
+
+    nav a:hover {
+        color: #38bdf8;
+    }
+
+    .hero {
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+    .hero h2 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .hero p {
+        color: #94a3b8;
+        font-size: 14px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .card {
+        background: #020617;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        border: 1px solid #1e293b;
+    }
+
+    .card h3 {
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        background: #0f172a;
+        color: white;
+        margin-bottom: 10px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: #38bdf8;
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        background: #0ea5e9;
+    }
+
+    .result {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #94a3b8;
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 12px;
+        color: #64748b;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>RailTrack</h1>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Track Train</a>
+        <a href="#">Parcels</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h2>Track Trains & Parcels Easily</h2>
+    <p>Fast, simple and clean railway tracking experience</p>
+</section>
+
+<div class="container">
+
+    <!-- Train Tracking -->
+    <div class="card">
+        <h3>🚆 Track Train</h3>
+        <input type="text" id="trainInput" placeholder="Enter Train Number">
+        <button onclick="trackTrain()">Track Train</button>
+        <div class="result" id="trainResult"></div>
+    </div>
+
+    <!-- Parcel Tracking -->
+    <div class="card">
+        <h3>📦 Track Parcel</h3>
+        <input type="text" id="parcelInput" placeholder="Enter Parcel ID">
+        <button onclick="trackParcel()">Track Parcel</button>
+        <div class="result" id="parcelResult"></div>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 RailTrack India | Not affiliated with Indian Railways
+</footer>
+
+<script>
+function trackTrain() {
+    const trainNo = document.getElementById("trainInput").value;
+    const result = document.getElementById("trainResult");
+
+    if (!trainNo) {
+        result.innerHTML = "Please enter a train number.";
+        return;
+    }
+
+    // Placeholder logic (replace with API later)
+    result.innerHTML = "Fetching train status for " + trainNo + "...";
+
+    setTimeout(() => {
+        result.innerHTML = `
+            Train ${trainNo} is currently running on time.<br>
+            Last seen near: Example Station<br>
+            Delay: 0 minutes
+        `;
+    }, 1000);
+}
+
+function trackParcel() {
+    const parcelId = document.getElementById("parcelInput").value;
+    const result = document.getElementById("parcelResult");
+
+    if (!parcelId) {
+        result.innerHTML = "Please enter a parcel ID.";
+        return;
+    }
+
+    // Placeholder logic
+    result.innerHTML = "Fetching parcel details...";
+
+    setTimeout(() => {
+        result.innerHTML = `
+            Parcel ${parcelId} is in transit.<br>
+            Current Location: Sorting Hub<br>
+            Estimated Delivery: 2 days
+        `;
+    }, 1000);
+}
+</script>
+
+</body>
+</html>
