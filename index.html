@@ -129,8 +129,51 @@ button {
 <div class="card">
 <h3>💺 Seats</h3>
 <input id="seatTrain" placeholder="Train">
-<input id="from" placeholder="From">
-<input id="to" placeholder="To">
+<input id="from" list="stationsList" placeholder="From (type or select)">
+<input id="to" list="stationsList" placeholder="To (type or select)">
+<datalist id="stationsList">
+  <option value="New Delhi">
+  <option value="Mumbai">
+  <option value="Chennai">
+  <option value="Kolkata">
+  <option value="Bengaluru">
+  <option value="Hyderabad">
+  <option value="Ahmedabad">
+  <option value="Pune">
+  <option value="Jaipur">
+  <option value="Lucknow">
+  <option value="Kanpur">
+  <option value="Nagpur">
+  <option value="Bhopal">
+  <option value="Indore">
+  <option value="Patna">
+  <option value="Ranchi">
+  <option value="Bhubaneswar">
+  <option value="Visakhapatnam">
+  <option value="Vijayawada">
+  <option value="Kochi">
+  <option value="Thiruvananthapuram">
+  <option value="Kozhikode">
+  <option value="Coimbatore">
+  <option value="Madurai">
+  <option value="Surat">
+  <option value="Vadodara">
+  <option value="Rajkot">
+  <option value="Chandigarh">
+  <option value="Amritsar">
+  <option value="Ludhiana">
+  <option value="Dehradun">
+  <option value="Haridwar">
+  <option value="Varanasi">
+  <option value="Prayagraj">
+  <option value="Guwahati">
+  <option value="Shillong">
+  <option value="Agartala">
+  <option value="Imphal">
+  <option value="Aizawl">
+  <option value="Itanagar">
+  <option value="Port Blair">
+</datalist>
 <button onclick="checkSeats()">Check</button>
 <div id="seatResult" class="result"></div>
 </div>
