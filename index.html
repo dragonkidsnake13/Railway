@@ -217,6 +217,8 @@ button {
 </div>
 
 <script>
+const BASE_URL = "http://localhost:3000"; // change if needed
+
 function toggleTheme() {
   document.body.classList.toggle("light");
 }
@@ -233,18 +235,43 @@ function renderHistory() {
   document.getElementById("history").innerHTML = hist.join("<br>");
 }
 
-function trackTrain() {
+// 🚆 REAL TRAIN TRACKING
+async function trackTrain() {
   let t = document.getElementById("trainNo").value;
   let r = document.getElementById("trainResult");
 
-  r.innerHTML = "Loading...";
+  if (!t) {
+    r.innerHTML = "Enter train number";
+    return;
+  }
+
+  r.innerHTML = "Fetching real data...";
   saveHistory("Train " + t);
 
-  setTimeout(()=>{
-    r.innerHTML = `Name: Express ${t}<br>From: Delhi<br>To: Mumbai<br>Current: Station X`;
-  },800);
+  try {
+    const res = await fetch(`${BASE_URL}/train/${t}`);
+    const data = await res.json();
+
+    if (!data || data.error) {
+      r.innerHTML = "No data found / API error";
+      return;
+    }
+
+    const train = data.data || data;
+
+    r.innerHTML = `
+      🚆 <b>${train.trainName || "N/A"}</b><br>
+      📍 Status: ${train.statusNote || "Unknown"}<br>
+      📌 From: ${train.source || "N/A"}<br>
+      🎯 To: ${train.destination || "N/A"}<br>
+      📡 Current: ${train.currentStation || "N/A"}
+    `;
+  } catch (err) {
+    r.innerHTML = "⚠️ Backend not running or error";
+  }
 }
 
+// 📦 PARCEL (still simulated for now)
 function trackParcel() {
   let p = document.getElementById("parcelNo").value;
   let r = document.getElementById("parcelResult");
@@ -257,26 +284,39 @@ function trackParcel() {
   },800);
 }
 
+// 💺 SEAT CHECK (prepare for backend later)
 function checkSeats() {
+  let train = document.getElementById("seatTrain").value;
+  let from = document.getElementById("from").value;
+  let to = document.getElementById("to").value;
   let r = document.getElementById("seatResult");
+
   r.innerHTML = "Checking...";
-  saveHistory("Seat check");
+  saveHistory(`Seat ${train} ${from}-${to}`);
 
   setTimeout(()=>{
-    r.innerHTML = "Available: 25";
+    r.innerHTML = `
+      Train: ${train}<br>
+      From: ${from}<br>
+      To: ${to}<br>
+      Available: 25 (demo)
+    `;
   },800);
 }
 
+// 🔐 LOGIN
 function login() {
   let user = document.getElementById("user").value;
   localStorage.setItem("user", user);
   document.getElementById("userDisplay").innerText = user;
 }
 
+// 🔔 ALERT
 function notify() {
   document.getElementById("alertBox").innerHTML = "Train delayed by 10 mins";
 }
 
+// 🧹 CLEAR
 function clearData() {
   localStorage.clear();
   location.reload();
@@ -284,6 +324,5 @@ function clearData() {
 
 renderHistory();
 </script>
-
 </body>
 </html>
