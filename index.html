@@ -65,9 +65,16 @@ body {
 }
 
 .card {
+  transition: transform 0.2s, box-shadow 0.2s;
   background: var(--card);
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 input {
@@ -132,47 +139,54 @@ button {
 <input id="from" list="stationsList" placeholder="From (type or select)">
 <input id="to" list="stationsList" placeholder="To (type or select)">
 <datalist id="stationsList">
-  <option value="New Delhi">
-  <option value="Mumbai">
-  <option value="Chennai">
-  <option value="Kolkata">
-  <option value="Bengaluru">
-  <option value="Hyderabad">
-  <option value="Ahmedabad">
-  <option value="Pune">
-  <option value="Jaipur">
-  <option value="Lucknow">
-  <option value="Kanpur">
-  <option value="Nagpur">
-  <option value="Bhopal">
-  <option value="Indore">
-  <option value="Patna">
-  <option value="Ranchi">
-  <option value="Bhubaneswar">
-  <option value="Visakhapatnam">
-  <option value="Vijayawada">
-  <option value="Kochi">
-  <option value="Thiruvananthapuram">
-  <option value="Kozhikode">
-  <option value="Coimbatore">
-  <option value="Madurai">
-  <option value="Surat">
-  <option value="Vadodara">
-  <option value="Rajkot">
-  <option value="Chandigarh">
-  <option value="Amritsar">
-  <option value="Ludhiana">
-  <option value="Dehradun">
-  <option value="Haridwar">
-  <option value="Varanasi">
-  <option value="Prayagraj">
-  <option value="Guwahati">
-  <option value="Shillong">
-  <option value="Agartala">
-  <option value="Imphal">
-  <option value="Aizawl">
-  <option value="Itanagar">
-  <option value="Port Blair">
+  <!-- Major + Expanded Stations with Codes -->
+  <option value="New Delhi (NDLS)">
+  <option value="Old Delhi (DLI)">
+  <option value="Mumbai CST (CSTM)">
+  <option value="Mumbai Central (MMCT)">
+  <option value="Chennai Central (MAS)">
+  <option value="Chennai Egmore (MS)">
+  <option value="Kolkata Howrah (HWH)">
+  <option value="Sealdah (SDAH)">
+  <option value="Bengaluru City (SBC)">
+  <option value="Yeshwantpur (YPR)">
+  <option value="Hyderabad (HYB)">
+  <option value="Secunderabad (SC)">
+  <option value="Ahmedabad (ADI)">
+  <option value="Pune (PUNE)">
+  <option value="Jaipur (JP)">
+  <option value="Lucknow (LKO)">
+  <option value="Kanpur Central (CNB)">
+  <option value="Nagpur (NGP)">
+  <option value="Bhopal (BPL)">
+  <option value="Indore (INDB)">
+  <option value="Patna (PNBE)">
+  <option value="Ranchi (RNC)">
+  <option value="Bhubaneswar (BBS)">
+  <option value="Visakhapatnam (VSKP)">
+  <option value="Vijayawada (BZA)">
+  <option value="Kochi Ernakulam (ERS)">
+  <option value="Thiruvananthapuram (TVC)">
+  <option value="Kozhikode (CLT)">
+  <option value="Coimbatore (CBE)">
+  <option value="Madurai (MDU)">
+  <option value="Surat (ST)">
+  <option value="Vadodara (BRC)">
+  <option value="Rajkot (RJT)">
+  <option value="Chandigarh (CDG)">
+  <option value="Amritsar (ASR)">
+  <option value="Ludhiana (LDH)">
+  <option value="Dehradun (DDN)">
+  <option value="Haridwar (HW)">
+  <option value="Varanasi (BSB)">
+  <option value="Prayagraj (PRYJ)">
+  <option value="Guwahati (GHY)">
+  <option value="Shillong (SHL)">
+  <option value="Agartala (AGTL)">
+  <option value="Imphal (IMPH)">
+  <option value="Aizawl (AIZL)">
+  <option value="Itanagar (ITA)">
+  <option value="Port Blair (PBR)">
 </datalist>
 <button onclick="checkSeats()">Check</button>
 <div id="seatResult" class="result"></div>
