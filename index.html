@@ -3,203 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RailTrack India</title>
+<title>RailTrack Pro</title>
 
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Segoe UI", sans-serif;
-    }
+:root {
+    --bg: #0f172a;
+    --card: #020617;
+    --text: #e2e8f0;
+    --sub: #94a3b8;
+}
 
-    body {
-        background: #0f172a;
-        color: #e2e8f0;
-    }
+body.light {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #0f172a;
+    --sub: #475569;
+}
 
-    header {
-        padding: 20px 40px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #020617;
-        border-bottom: 1px solid #1e293b;
-    }
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
 
-    header h1 {
-        font-size: 22px;
-        color: #38bdf8;
-    }
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background: var(--card);
+}
 
-    nav a {
-        margin-left: 20px;
-        text-decoration: none;
-        color: #cbd5f5;
-        font-size: 14px;
-    }
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
 
-    nav a:hover {
-        color: #38bdf8;
-    }
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
 
-    .hero {
-        text-align: center;
-        padding: 60px 20px;
-    }
+.card {
+    background: var(--card);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
 
-    .hero h2 {
-        font-size: 32px;
-        margin-bottom: 10px;
-    }
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
 
-    .hero p {
-        color: #94a3b8;
-        font-size: 14px;
-    }
-
-    .container {
-        max-width: 800px;
-        margin: auto;
-        padding: 20px;
-    }
-
-    .card {
-        background: #020617;
-        padding: 20px;
-        margin-bottom: 20px;
-        border-radius: 12px;
-        border: 1px solid #1e293b;
-    }
-
-    .card h3 {
-        margin-bottom: 15px;
-        font-size: 18px;
-    }
-
-    input {
-        width: 100%;
-        padding: 12px;
-        border-radius: 8px;
-        border: none;
-        outline: none;
-        background: #0f172a;
-        color: white;
-        margin-bottom: 10px;
-    }
-
-    button {
-        width: 100%;
-        padding: 12px;
-        border: none;
-        border-radius: 8px;
-        background: #38bdf8;
-        color: black;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.2s;
-    }
-
-    button:hover {
-        background: #0ea5e9;
-    }
-
-    .result {
-        margin-top: 15px;
-        font-size: 14px;
-        color: #94a3b8;
-    }
-
-    footer {
-        text-align: center;
-        padding: 20px;
-        font-size: 12px;
-        color: #64748b;
-    }
+.result {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--sub);
+}
 </style>
 </head>
 
 <body>
 
 <header>
-    <h1>RailTrack</h1>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Track Train</a>
-        <a href="#">Parcels</a>
-    </nav>
+    <h2>RailTrack Pro</h2>
+    <div>
+        <button onclick="toggleTheme()">Toggle Theme</button>
+    </div>
 </header>
-
-<section class="hero">
-    <h2>Track Trains & Parcels Easily</h2>
-    <p>Fast, simple and clean railway tracking experience</p>
-</section>
 
 <div class="container">
 
-    <!-- Train Tracking -->
-    <div class="card">
-        <h3>🚆 Track Train</h3>
-        <input type="text" id="trainInput" placeholder="Enter Train Number">
-        <button onclick="trackTrain()">Track Train</button>
-        <div class="result" id="trainResult"></div>
-    </div>
+<div class="card">
+<h3>🚆 Train Tracking</h3>
+<input id="trainNo" placeholder="Train Number">
+<button onclick="trackTrain()">Track</button>
+<div id="trainResult" class="result"></div>
+</div>
 
-    <!-- Parcel Tracking -->
-    <div class="card">
-        <h3>📦 Track Parcel</h3>
-        <input type="text" id="parcelInput" placeholder="Enter Parcel ID">
-        <button onclick="trackParcel()">Track Parcel</button>
-        <div class="result" id="parcelResult"></div>
-    </div>
+<div class="card">
+<h3>📦 Parcel Tracking</h3>
+<input id="parcelNo" placeholder="Parcel ID">
+<button onclick="trackParcel()">Track</button>
+<div id="parcelResult" class="result"></div>
+</div>
+
+<div class="card">
+<h3>💺 Seat Availability</h3>
+<input id="seatTrain" placeholder="Train Number">
+<input id="from" placeholder="From">
+<input id="to" placeholder="To">
+<button onclick="checkSeats()">Check</button>
+<div id="seatResult" class="result"></div>
+</div>
+
+<div class="card">
+<h3>🔐 Login / Signup</h3>
+<input id="user" placeholder="Username">
+<input id="pass" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+<div id="authResult" class="result"></div>
+</div>
 
 </div>
 
-<footer>
-    © 2026 RailTrack India | Not affiliated with Indian Railways
-</footer>
-
 <script>
+function toggleTheme() {
+    document.body.classList.toggle("light");
+}
+
 function trackTrain() {
-    const trainNo = document.getElementById("trainInput").value;
-    const result = document.getElementById("trainResult");
+    let t = document.getElementById("trainNo").value;
+    let r = document.getElementById("trainResult");
 
-    if (!trainNo) {
-        result.innerHTML = "Please enter a train number.";
-        return;
-    }
+    r.innerHTML = "Loading...";
 
-    // Placeholder logic (replace with API later)
-    result.innerHTML = "Fetching train status for " + trainNo + "...";
-
-    setTimeout(() => {
-        result.innerHTML = `
-            Train ${trainNo} is currently running on time.<br>
-            Last seen near: Example Station<br>
-            Delay: 0 minutes
+    setTimeout(()=>{
+        r.innerHTML = `
+        Name: Express ${t}<br>
+        From: Delhi<br>
+        To: Mumbai<br>
+        Current: Somewhere Station<br>
+        Status: On Time
         `;
-    }, 1000);
+    },1000);
 }
 
 function trackParcel() {
-    const parcelId = document.getElementById("parcelInput").value;
-    const result = document.getElementById("parcelResult");
+    let p = document.getElementById("parcelNo").value;
+    let r = document.getElementById("parcelResult");
 
-    if (!parcelId) {
-        result.innerHTML = "Please enter a parcel ID.";
+    r.innerHTML = "Loading...";
+
+    setTimeout(()=>{
+        r.innerHTML = `
+        Parcel: ${p}<br>
+        Status: In Transit<br>
+        Location: Hub Center
+        `;
+    },1000);
+}
+
+function checkSeats() {
+    let r = document.getElementById("seatResult");
+    r.innerHTML = "Checking...";
+
+    setTimeout(()=>{
+        r.innerHTML = "Seats Available: 32";
+    },1000);
+}
+
+function login() {
+    let user = document.getElementById("user").value;
+    let r = document.getElementById("authResult");
+
+    if(user === "") {
+        r.innerHTML = "Enter username";
         return;
     }
 
-    // Placeholder logic
-    result.innerHTML = "Fetching parcel details...";
-
-    setTimeout(() => {
-        result.innerHTML = `
-            Parcel ${parcelId} is in transit.<br>
-            Current Location: Sorting Hub<br>
-            Estimated Delivery: 2 days
-        `;
-    }, 1000);
+    localStorage.setItem("user", user);
+    r.innerHTML = "Logged in as " + user;
 }
 </script>
 
