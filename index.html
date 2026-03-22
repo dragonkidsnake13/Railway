@@ -3,173 +3,229 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RailTrack Pro</title>
+<title>RailTrack Pro Dashboard</title>
 
 <style>
 :root {
-    --bg: #0f172a;
-    --card: #020617;
-    --text: #e2e8f0;
-    --sub: #94a3b8;
+  --bg: #0f172a;
+  --card: #020617;
+  --text: #e2e8f0;
+  --sub: #94a3b8;
+  --accent: #38bdf8;
 }
 
 body.light {
-    --bg: #f8fafc;
-    --card: #ffffff;
-    --text: #0f172a;
-    --sub: #475569;
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --text: #0f172a;
+  --sub: #475569;
 }
 
 body {
-    margin: 0;
-    font-family: sans-serif;
-    background: var(--bg);
-    color: var(--text);
+  margin: 0;
+  font-family: sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 30px;
-    background: var(--card);
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: var(--card);
+  padding: 20px;
+  height: 100vh;
 }
 
-button {
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+.sidebar h2 {
+  margin-bottom: 20px;
 }
 
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
+.sidebar button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Main */
+.main {
+  flex: 1;
+  padding: 20px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
 }
 
 .card {
-    background: var(--card);
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
+  background: var(--card);
+  padding: 15px;
+  border-radius: 10px;
 }
 
 input {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+}
+
+button {
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  cursor: pointer;
 }
 
 .result {
-    margin-top: 10px;
-    font-size: 14px;
-    color: var(--sub);
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--sub);
 }
 </style>
 </head>
 
 <body>
 
-<header>
-    <h2>RailTrack Pro</h2>
-    <div>
-        <button onclick="toggleTheme()">Toggle Theme</button>
-    </div>
-</header>
+<div class="sidebar">
+  <h2>RailTrack</h2>
+  <button onclick="toggleTheme()">🌗 Theme</button>
+  <button onclick="clearData()">🧹 Clear</button>
+</div>
 
-<div class="container">
+<div class="main">
 
+<div class="topbar">
+  <h2>Dashboard</h2>
+  <div id="userDisplay">Guest</div>
+</div>
+
+<div class="grid">
+
+<!-- Train -->
 <div class="card">
-<h3>🚆 Train Tracking</h3>
+<h3>🚆 Train Tracker</h3>
 <input id="trainNo" placeholder="Train Number">
 <button onclick="trackTrain()">Track</button>
 <div id="trainResult" class="result"></div>
 </div>
 
+<!-- Parcel -->
 <div class="card">
-<h3>📦 Parcel Tracking</h3>
+<h3>📦 Parcel</h3>
 <input id="parcelNo" placeholder="Parcel ID">
 <button onclick="trackParcel()">Track</button>
 <div id="parcelResult" class="result"></div>
 </div>
 
+<!-- Seats -->
 <div class="card">
-<h3>💺 Seat Availability</h3>
-<input id="seatTrain" placeholder="Train Number">
+<h3>💺 Seats</h3>
+<input id="seatTrain" placeholder="Train">
 <input id="from" placeholder="From">
 <input id="to" placeholder="To">
 <button onclick="checkSeats()">Check</button>
 <div id="seatResult" class="result"></div>
 </div>
 
+<!-- Login -->
 <div class="card">
-<h3>🔐 Login / Signup</h3>
+<h3>🔐 Login</h3>
 <input id="user" placeholder="Username">
-<input id="pass" type="password" placeholder="Password">
 <button onclick="login()">Login</button>
 <div id="authResult" class="result"></div>
 </div>
 
+<!-- History -->
+<div class="card">
+<h3>📜 Search History</h3>
+<div id="history" class="result"></div>
+</div>
+
+<!-- Notifications -->
+<div class="card">
+<h3>🔔 Alerts</h3>
+<button onclick="notify()">Test Alert</button>
+<div id="alertBox" class="result"></div>
+</div>
+
+</div>
 </div>
 
 <script>
 function toggleTheme() {
-    document.body.classList.toggle("light");
+  document.body.classList.toggle("light");
+}
+
+function saveHistory(item) {
+  let hist = JSON.parse(localStorage.getItem("hist") || "[]");
+  hist.push(item);
+  localStorage.setItem("hist", JSON.stringify(hist));
+  renderHistory();
+}
+
+function renderHistory() {
+  let hist = JSON.parse(localStorage.getItem("hist") || "[]");
+  document.getElementById("history").innerHTML = hist.join("<br>");
 }
 
 function trackTrain() {
-    let t = document.getElementById("trainNo").value;
-    let r = document.getElementById("trainResult");
+  let t = document.getElementById("trainNo").value;
+  let r = document.getElementById("trainResult");
 
-    r.innerHTML = "Loading...";
+  r.innerHTML = "Loading...";
+  saveHistory("Train " + t);
 
-    setTimeout(()=>{
-        r.innerHTML = `
-        Name: Express ${t}<br>
-        From: Delhi<br>
-        To: Mumbai<br>
-        Current: Somewhere Station<br>
-        Status: On Time
-        `;
-    },1000);
+  setTimeout(()=>{
+    r.innerHTML = `Name: Express ${t}<br>From: Delhi<br>To: Mumbai<br>Current: Station X`;
+  },800);
 }
 
 function trackParcel() {
-    let p = document.getElementById("parcelNo").value;
-    let r = document.getElementById("parcelResult");
+  let p = document.getElementById("parcelNo").value;
+  let r = document.getElementById("parcelResult");
 
-    r.innerHTML = "Loading...";
+  r.innerHTML = "Loading...";
+  saveHistory("Parcel " + p);
 
-    setTimeout(()=>{
-        r.innerHTML = `
-        Parcel: ${p}<br>
-        Status: In Transit<br>
-        Location: Hub Center
-        `;
-    },1000);
+  setTimeout(()=>{
+    r.innerHTML = `Parcel ${p}<br>Status: Moving<br>Location: Hub`;
+  },800);
 }
 
 function checkSeats() {
-    let r = document.getElementById("seatResult");
-    r.innerHTML = "Checking...";
+  let r = document.getElementById("seatResult");
+  r.innerHTML = "Checking...";
+  saveHistory("Seat check");
 
-    setTimeout(()=>{
-        r.innerHTML = "Seats Available: 32";
-    },1000);
+  setTimeout(()=>{
+    r.innerHTML = "Available: 25";
+  },800);
 }
 
 function login() {
-    let user = document.getElementById("user").value;
-    let r = document.getElementById("authResult");
-
-    if(user === "") {
-        r.innerHTML = "Enter username";
-        return;
-    }
-
-    localStorage.setItem("user", user);
-    r.innerHTML = "Logged in as " + user;
+  let user = document.getElementById("user").value;
+  localStorage.setItem("user", user);
+  document.getElementById("userDisplay").innerText = user;
 }
+
+function notify() {
+  document.getElementById("alertBox").innerHTML = "Train delayed by 10 mins";
+}
+
+function clearData() {
+  localStorage.clear();
+  location.reload();
+}
+
+renderHistory();
 </script>
 
 </body>
