@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RailTrack Pro Dashboard</title>
+<title>RailTrack Pro</title>
 
 <style>
 :root {
@@ -29,7 +29,6 @@ body {
   display: flex;
 }
 
-/* Sidebar */
 .sidebar {
   width: 220px;
   background: var(--card);
@@ -37,25 +36,9 @@ body {
   height: 100vh;
 }
 
-.sidebar h2 {
-  margin-bottom: 20px;
-}
-
-.sidebar button {
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-/* Main */
 .main {
   flex: 1;
   padding: 20px;
-}
-
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
 }
 
 .grid {
@@ -65,16 +48,15 @@ body {
 }
 
 .card {
-  transition: transform 0.2s, box-shadow 0.2s;
   background: var(--card);
   padding: 15px;
   border-radius: 14px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: 0.2s;
 }
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 input {
@@ -108,15 +90,11 @@ button {
 </div>
 
 <div class="main">
-
-<div class="topbar">
-  <h2>Dashboard</h2>
-  <div id="userDisplay">Guest</div>
-</div>
+<h2>Dashboard</h2>
 
 <div class="grid">
 
-<!-- Train -->
+<!-- TRAIN -->
 <div class="card">
 <h3>🚆 Train Tracker</h3>
 <input id="trainNo" placeholder="Train Number">
@@ -124,7 +102,32 @@ button {
 <div id="trainResult" class="result"></div>
 </div>
 
-<!-- Parcel -->
+<!-- SEATS -->
+<div class="card">
+<h3>💺 Seat Availability</h3>
+<input id="seatTrain" placeholder="Train Number">
+
+<input id="from" list="stations" placeholder="From">
+<input id="to" list="stations" placeholder="To">
+
+<datalist id="stations">
+<option value="New Delhi (NDLS)">
+<option value="Mumbai Central (MMCT)">
+<option value="Chennai Central (MAS)">
+<option value="Kolkata Howrah (HWH)">
+<option value="Bengaluru (SBC)">
+<option value="Hyderabad (HYB)">
+<option value="Ahmedabad (ADI)">
+<option value="Pune (PUNE)">
+<option value="Jaipur (JP)">
+<option value="Lucknow (LKO)">
+</datalist>
+
+<button onclick="checkSeats()">Check</button>
+<div id="seatResult" class="result"></div>
+</div>
+
+<!-- PARCEL -->
 <div class="card">
 <h3>📦 Parcel</h3>
 <input id="parcelNo" placeholder="Parcel ID">
@@ -132,67 +135,7 @@ button {
 <div id="parcelResult" class="result"></div>
 </div>
 
-<!-- Seats -->
-<div class="card">
-<h3>💺 Seats</h3>
-<input id="seatTrain" placeholder="Train">
-<input id="from" list="stationsList" placeholder="From (type or select)">
-<input id="to" list="stationsList" placeholder="To (type or select)">
-<datalist id="stationsList">
-  <!-- Major + Expanded Stations with Codes -->
-  <option value="New Delhi (NDLS)">
-  <option value="Old Delhi (DLI)">
-  <option value="Mumbai CST (CSTM)">
-  <option value="Mumbai Central (MMCT)">
-  <option value="Chennai Central (MAS)">
-  <option value="Chennai Egmore (MS)">
-  <option value="Kolkata Howrah (HWH)">
-  <option value="Sealdah (SDAH)">
-  <option value="Bengaluru City (SBC)">
-  <option value="Yeshwantpur (YPR)">
-  <option value="Hyderabad (HYB)">
-  <option value="Secunderabad (SC)">
-  <option value="Ahmedabad (ADI)">
-  <option value="Pune (PUNE)">
-  <option value="Jaipur (JP)">
-  <option value="Lucknow (LKO)">
-  <option value="Kanpur Central (CNB)">
-  <option value="Nagpur (NGP)">
-  <option value="Bhopal (BPL)">
-  <option value="Indore (INDB)">
-  <option value="Patna (PNBE)">
-  <option value="Ranchi (RNC)">
-  <option value="Bhubaneswar (BBS)">
-  <option value="Visakhapatnam (VSKP)">
-  <option value="Vijayawada (BZA)">
-  <option value="Kochi Ernakulam (ERS)">
-  <option value="Thiruvananthapuram (TVC)">
-  <option value="Kozhikode (CLT)">
-  <option value="Coimbatore (CBE)">
-  <option value="Madurai (MDU)">
-  <option value="Surat (ST)">
-  <option value="Vadodara (BRC)">
-  <option value="Rajkot (RJT)">
-  <option value="Chandigarh (CDG)">
-  <option value="Amritsar (ASR)">
-  <option value="Ludhiana (LDH)">
-  <option value="Dehradun (DDN)">
-  <option value="Haridwar (HW)">
-  <option value="Varanasi (BSB)">
-  <option value="Prayagraj (PRYJ)">
-  <option value="Guwahati (GHY)">
-  <option value="Shillong (SHL)">
-  <option value="Agartala (AGTL)">
-  <option value="Imphal (IMPH)">
-  <option value="Aizawl (AIZL)">
-  <option value="Itanagar (ITA)">
-  <option value="Port Blair (PBR)">
-</datalist>
-<button onclick="checkSeats()">Check</button>
-<div id="seatResult" class="result"></div>
-</div>
-
-<!-- Login -->
+<!-- LOGIN -->
 <div class="card">
 <h3>🔐 Login</h3>
 <input id="user" placeholder="Username">
@@ -200,123 +143,113 @@ button {
 <div id="authResult" class="result"></div>
 </div>
 
-<!-- History -->
+<!-- HISTORY -->
 <div class="card">
-<h3>📜 Search History</h3>
+<h3>📜 History</h3>
 <div id="history" class="result"></div>
-</div>
-
-<!-- Notifications -->
-<div class="card">
-<h3>🔔 Alerts</h3>
-<button onclick="notify()">Test Alert</button>
-<div id="alertBox" class="result"></div>
 </div>
 
 </div>
 </div>
 
 <script>
-const BASE_URL = "http://localhost:3000"; // change if needed
+const BASE = "http://localhost:3000";
 
+// theme
 function toggleTheme() {
   document.body.classList.toggle("light");
 }
 
+// history
 function saveHistory(item) {
-  let hist = JSON.parse(localStorage.getItem("hist") || "[]");
-  hist.push(item);
-  localStorage.setItem("hist", JSON.stringify(hist));
+  let h = JSON.parse(localStorage.getItem("h") || "[]");
+  h.push(item);
+  localStorage.setItem("h", JSON.stringify(h));
   renderHistory();
 }
 
 function renderHistory() {
-  let hist = JSON.parse(localStorage.getItem("hist") || "[]");
-  document.getElementById("history").innerHTML = hist.join("<br>");
+  let h = JSON.parse(localStorage.getItem("h") || "[]");
+  document.getElementById("history").innerHTML = h.join("<br>");
 }
 
-// 🚆 REAL TRAIN TRACKING
+// 🚆 TRAIN API
 async function trackTrain() {
   let t = document.getElementById("trainNo").value;
   let r = document.getElementById("trainResult");
 
-  if (!t) {
-    r.innerHTML = "Enter train number";
-    return;
-  }
+  if (!t) return r.innerHTML = "Enter train number";
 
-  r.innerHTML = "Fetching real data...";
-  saveHistory("Train " + t);
+  r.innerHTML = "Fetching...";
 
   try {
-    const res = await fetch(`${BASE_URL}/train/${t}`);
-    const data = await res.json();
+    let res = await fetch(`${BASE}/train/${t}`);
+    let data = await res.json();
 
-    if (!data || data.error) {
-      r.innerHTML = "No data found / API error";
-      return;
-    }
-
-    const train = data.data || data;
+    let d = data.data || data;
 
     r.innerHTML = `
-      🚆 <b>${train.trainName || "N/A"}</b><br>
-      📍 Status: ${train.statusNote || "Unknown"}<br>
-      📌 From: ${train.source || "N/A"}<br>
-      🎯 To: ${train.destination || "N/A"}<br>
-      📡 Current: ${train.currentStation || "N/A"}
+      <b>${d.trainName || "N/A"}</b><br>
+      Status: ${d.statusNote || "N/A"}<br>
+      From: ${d.source || "N/A"}<br>
+      To: ${d.destination || "N/A"}
     `;
-  } catch (err) {
-    r.innerHTML = "⚠️ Backend not running or error";
+
+    saveHistory("Train " + t);
+  } catch {
+    r.innerHTML = "Backend error";
   }
 }
 
-// 📦 PARCEL (still simulated for now)
-function trackParcel() {
-  let p = document.getElementById("parcelNo").value;
-  let r = document.getElementById("parcelResult");
-
-  r.innerHTML = "Loading...";
-  saveHistory("Parcel " + p);
-
-  setTimeout(()=>{
-    r.innerHTML = `Parcel ${p}<br>Status: Moving<br>Location: Hub`;
-  },800);
-}
-
-// 💺 SEAT CHECK (prepare for backend later)
-function checkSeats() {
-  let train = document.getElementById("seatTrain").value;
+// 💺 SEAT API
+async function checkSeats() {
+  let t = document.getElementById("seatTrain").value;
   let from = document.getElementById("from").value;
   let to = document.getElementById("to").value;
   let r = document.getElementById("seatResult");
 
-  r.innerHTML = "Checking...";
-  saveHistory(`Seat ${train} ${from}-${to}`);
+  let f = from.split("(")[1]?.replace(")", "");
+  let tt = to.split("(")[1]?.replace(")", "");
 
-  setTimeout(()=>{
+  if (!t || !f || !tt) return r.innerHTML = "Fill properly";
+
+  r.innerHTML = "Checking seats...";
+
+  try {
+    let res = await fetch(`${BASE}/seats?train=${t}&from=${f}&to=${tt}`);
+    let data = await res.json();
+
     r.innerHTML = `
-      Train: ${train}<br>
-      From: ${from}<br>
-      To: ${to}<br>
-      Available: 25 (demo)
+      Train: ${t}<br>
+      From: ${f}<br>
+      To: ${tt}<br>
+      Status: ${data.status || "Check manually"}
     `;
+
+    saveHistory(`Seat ${t}`);
+  } catch {
+    r.innerHTML = "Seat API error";
+  }
+}
+
+// 📦 parcel (still fake)
+function trackParcel() {
+  let p = document.getElementById("parcelNo").value;
+  let r = document.getElementById("parcelResult");
+
+  r.innerHTML = "Processing...";
+  setTimeout(()=>{
+    r.innerHTML = `Parcel ${p}<br>Status: In Transit`;
   },800);
 }
 
-// 🔐 LOGIN
+// login
 function login() {
-  let user = document.getElementById("user").value;
-  localStorage.setItem("user", user);
-  document.getElementById("userDisplay").innerText = user;
+  let u = document.getElementById("user").value;
+  localStorage.setItem("user", u);
 }
 
-// 🔔 ALERT
-function notify() {
-  document.getElementById("alertBox").innerHTML = "Train delayed by 10 mins";
-}
-
-// 🧹 CLEAR
+// clear
 function clearData() {
   localStorage.clear();
   location.reload();
@@ -324,5 +257,6 @@ function clearData() {
 
 renderHistory();
 </script>
+
 </body>
 </html>
